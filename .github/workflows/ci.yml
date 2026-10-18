@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t iot-nids-benchmark .
+      - name: Run Quickstart on sample data
+        run: |
+          mkdir -p results
+          docker run --rm -v "$(pwd)/results:/app/results" iot-nids-benchmark
+          ls results
+      - name: Run tests
+        run: docker run --rm iot-nids-benchmark pytest -q tests/
