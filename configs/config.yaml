@@ -1,0 +1,29 @@
+# Experiment configuration. All independent variables live here.
+experiment:
+  name: sample            # prefix for output files in results/
+  seeds: [0, 1, 2]        # one run per seed; metrics are averaged
+  output_dir: results
+
+data:
+  path: data/sample/sample.csv
+  label_column: label           # 0 = benign, 1 = attack
+  attack_type_column: attack_type
+  test_size: 0.3                # ignored if the dataset has < min_rows_for_split rows
+  min_rows_for_split: 50        # tiny sample: train and test on the same rows (smoke test only)
+  holdout_attack_types: []      # zero-day simulation (RQ3): attack types removed from training
+
+model:
+  type: cnn                     # cnn | gru | gnn   (independent variable, RQ1)
+  hidden_size: 32
+  epochs: 5
+  batch_size: 4
+  learning_rate: 0.001
+
+compression:                    # independent variable, RQ2
+  mode: none                    # none | int8 | prune
+  prune_amount: 0.5             # used when mode = prune
+
+benchmark:
+  latency_warmup: 5             # warm-up inference calls (not measured)
+  latency_runs: 50              # measured inference calls
+  timeout_seconds: 300
