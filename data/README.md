@@ -14,3 +14,5 @@ Download manually and place under `data/raw/`:
 > Verify the current download links on the dataset pages; they may change.
 
 Expected CSV format (after preprocessing): numeric feature columns, a binary `label` column (0 = benign, 1 = attack) and an `attack_type` column. Column names are set in `configs/config.yaml`.
+
+## Feature notes- f1-f8: normalized flow-level features (packet rate, byte rate, duration, etc.).  Replace with the real TON-IoT / CIC-IoT2023 feature list after preprocessing.
